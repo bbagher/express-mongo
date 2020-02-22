@@ -1,21 +1,22 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+
 const { Schema } = mongoose;
 
 const requiredString = {
   type: String,
-  required: true
+  required: true,
 };
 
 const NewsEntrySchema = new Schema(
   {
     title: requiredString,
-    content: requiredString
+    content: requiredString,
   },
   {
-    timestamps: true
-  }
+    timestamps: true,
+  },
 );
 
-const NewsEntry = mongoose.model("NewsEntry", NewsEntrySchema);
+const NewsEntry = mongoose.model('NewsEntry', NewsEntrySchema);
 
 module.exports = NewsEntry;
