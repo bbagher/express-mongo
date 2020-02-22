@@ -1,14 +1,14 @@
 const express = require("express");
+const app = express();
 const morgan = require("morgan");
 const helmet = require("helmet");
 const cors = require("cors");
-const { notFound, errorHandler }= require("./error_handlers/middleware");
+const { notFound, errorHandler } = require("./error_handlers/middleware");
 const mongoose = require("mongoose");
-const news = require('./api/news')
+const news = require("./api/news");
+const graphql = require("./api/graphql");
 
 require("dotenv").config();
-
-const app = express();
 
 try {
   mongoose.connect(
@@ -22,7 +22,6 @@ try {
 } catch (error) {
   console.log("this is catch", error);
 }
-
 
 // console.log('this is process ', process.env.DATABASE_URL)
 app.use(morgan("common"));
@@ -40,10 +39,11 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/api/news", news)
+app.use("/api/news", news);
+app.use("/graphql", graphql);
 
-app.use(notFound)
-app.use(errorHandler)
+app.use(notFound);
+app.use(errorHandler);
 
 const port = process.env.PORT || 4444;
 

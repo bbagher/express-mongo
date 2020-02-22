@@ -1,9 +1,8 @@
 const { Router } = require("express");
 const NewsEntry = require("../models/NewsEntry");
+const http = Router();
 
-const router = Router();
-
-router.get("/", async (req, res, next) => {
+http.get("/", async (req, res, next) => {
   try {
     const entries = await NewsEntry.find();
     console.log("👀", entries);
@@ -15,7 +14,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+http.post("/", async (req, res, next) => {
   try {
     const newsEntry = new NewsEntry(req.body);
     const createdEntry = await newsEntry.save();
@@ -30,4 +29,4 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-module.exports = router;
+module.exports = http;
